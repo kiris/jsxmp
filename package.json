@@ -1,0 +1,33 @@
+{
+  "name": "jsxmp",
+  "description": "A JavaScript Testing and Trial & Error support tool.",
+  "preferGlobal": "true",
+  "version": "0.0.1",
+  "url": "http://github.com/kiris/jsxmp",
+  "author": "Yoshiaki Iwanaga <kiris60@gmail.com>",
+  "keywords": ["xmpfilter", "annotation", "test", "phantomjs", "jasmine", "qunit"],
+  "bin": {
+    "jsxmp" : "./bin/jsxmp"
+  },
+  "directories" : {
+    "lib" : "./lib/jsxmp"
+  },
+  "repository": {
+    "type" : "git",
+    "url"  : "https://github.com/kiris/jsxmp.git"
+  },
+  "dependencies": {
+    "esprima"    : ">=1.0.2",
+    "node-uuid"  : ">=1.4.0",
+    "exec-sync"  : ">=0.1.5",
+    "opts"       : ">=1.2.2",
+    "underscore" : ">=1.4.3"
+  },
+  "licenses": "BSD",
+  "engines": {
+    "node": ">=0.8.15"
+  },
+  "devDependencies": {
+    "coffee-script": ">=1.4.0"
+  }
+}

@@ -1,0 +1,31 @@
+var Helper = require('../lib/jsxmp/helper');
+
+describe('Helper', function() {
+
+  describe('#splitAt', function() {
+
+    it('split string at index', function() {
+      expect(Helper.splitAt('string', 0)).toEqual(["","string"]);
+      expect(Helper.splitAt('string', 1)).toEqual(["s","tring"]);
+      expect(Helper.splitAt('string', 2)).toEqual(["st","ring"]);
+      expect(Helper.splitAt('string', 6)).toEqual(["string",""]);
+    });
+
+    it('split string at index', function() {
+      expect(Helper.splitAt('string',  6)).toEqual(["string",""]);
+    });
+    it('split string at index', function() {
+      expect(Helper.splitAt('string', 2, 4)).toEqual(["st","ri","ng"]);
+      expect(Helper.splitAt('string', 3, 6)).toEqual(["str","ing",""]);
+      expect(Helper.splitAt('string', 1, 2, 3, 4, 5)).toEqual(["s","t","r","i","n","g"]);
+    });
+  });
+});
+
+
+// >> ...
+// >> 
+// >> Finished in 0.079 seconds
+// >> 3 tests, 8 assertions, 0 failures
+// >> 
+// >> 

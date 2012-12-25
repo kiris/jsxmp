@@ -1,0 +1,84 @@
+* アイディア
+
+** xmpfilterの機能
+Usage: /usr/local/Cellar/ruby/1.9.2-p0//bin/xmpfilter [options] [inputfile] [-- cmdline args]
+
+Modes:
+    -a, --annotations                Annotate code (default)
+    -u, --unittest                   Complete Test::Unit assertions.
+    -s, --spec                       Complete RSpec expectations.
+        --expectations               Complete expectations expectations.
+    -m, --markers                    Add # => markers.
+
+Interpreter options:
+    -S, --interpreter FILE           Use interpreter FILE.
+    -I PATH                          Add PATH to $LOAD_PATH
+        --dev                        Add this project's bin/ and lib/ to $LOAD_PATH.
+                                     A directory with a Rakefile is considered a project base directory.
+    -r LIB                           Require LIB before execution.
+    -e, --eval, --stub=EXPR          Evaluate EXPR after execution.
+        --fork                       Use rct-fork-client if rct-fork is running.
+        --rbtest                     Use rbtest.
+        --detect-rbtest              Use rbtest if '=begin test_*' blocks exist.
+
+Specific options:
+    -l, --min-line-length N          Align markers to N spaces.
+        --rails                      Setting appropriate for Rails.
+                                     (no warnings, find working directory,
+                                      Test::Unit assertions)
+        --[no-]poetry                Whether to use extra parentheses.
+                                     (default: use them)
+        --[no-]warnings              Whether to add warnings (# !>).
+                                     (default: enabled)
+    -q, --quiet                      Supress standard output.
+
+Misc options:
+        --cd DIR                     Change working directory to DIR.
+        --debug                      Write transformed source code to xmp-tmp.PID.rb.
+        --tmpfile, --tempfile        Use tmpfile instead of open3. (non-windows)
+    -w, --width N                    Set width of multi-line annotation. (xmpfilter only)
+
+    -h, --help                       Show this message
+    -v, --version                    Show version information
+
+** 機能
+ - モード
+   - 共通
+     - console.logの結果を「// >>」を出力
+     - // !>でワーニングの出力
+   - -a(default) or --annotations
+     - 通常モード。その行の実行結果を「// =>」で出力
+   - -j or --jasmine
+     - jasmineモード。「// =>」が記述されている行の実行結果からjasmine用のテストケースを作成する
+   - -u or --qunit
+     - qunitモード。「// =>」が記述されている行の実行結果からjasmine用のテストケースを作成する
+ - 実行
+   - -n / --with-node
+     - node.jsを使って実行する
+   - -p / --with-phantomjs
+     - phantom.jsを使って実行する
+ - ファイルフォーマット
+   - -A (default) or --auto
+     - ファイルの拡張子から自動判別します
+   - -C or --coffeescript
+     - CoffeeScript
+   - -T or --typescript
+     - TypeScript
+   - -H or --html
+     - HTMLファイル(自動的にjasmineモードになる)
+ - オプション
+ - その他
+   - -d or --debug
+   - -v or --version
+   - -h or --help
+
+** フロー
+ 1. コマンドラインオプションを解析する
+ 2. アノテーションを元に改変したコードを作る
+   - console.log($HEADER + $annoNo + "=" + $code); // => $HEADER + $annoNo
+   - 複数行に渡っていることを考えると、やはりJavaScript Parserが必須か？
+ 3. 実行結果を元に改変したコードを作って標準出力として表示する
+   - $HEADER + $annoNo が付いているもの
+     - $code; // => $result
+   - それ以外の標準出力
+     - // >> を付けて標準出力に追加する

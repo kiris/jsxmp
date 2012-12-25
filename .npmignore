@@ -1,0 +1,11 @@
+*.coffee
+.DS_Store
+.git*
+examples/
+editor-support/
+node_modules/
+tmp/
+src/
+spec/
+doc/
+#.*#
